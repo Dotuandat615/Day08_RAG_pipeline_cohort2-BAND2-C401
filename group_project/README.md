@@ -153,11 +153,11 @@ python group_project/evaluation/eval_pipeline.py
 
 | Thành viên | MSSV | Nhiệm vụ | Trạng thái |
 |-----------|------|----------|------------|
-| (Nhóm trưởng) | | Task 1,2,3 + Kiến trúc hệ thống | ✅ Done |
-| | | Task 4,5,6 + Indexing | ✅ Done |
-| | | Task 7,8 + Reranking + PageIndex | ✅ Done |
-| | | Task 9,10 + Pipeline + Generation | ✅ Done |
-| (Nhóm) | | UI/UX HTML + FastAPI + Evaluation | ✅ Done |
+| Đỗ Tuấn Đạt | 2A202600818 | Task 1,2,3 + Kiến trúc hệ thống | ✅ Done |
+| Hoàng Hiếu Trung | 2A202600702 | Task 4,5,6 + Indexing | ✅ Done |
+| Phan Văn Hiếu | 2A202600732 | Task 7,8 + Reranking + PageIndex | ✅ Done |
+| Đàm Xuân Giáp | 2A202600740 | Task 9,10 + Pipeline + Generation | ✅ Done |
+| Đỗ Tuấn Đạt | 2A202600818 | UI/UX HTML + FastAPI + Evaluation | ✅ Done |
 
 ---
 

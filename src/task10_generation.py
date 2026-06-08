@@ -22,8 +22,8 @@ from .task9_retrieval_pipeline import retrieve
 # =============================================================================
 
 # top_k: Số chunks đưa vào context
-# Chọn 5 vì: đủ evidence mà không quá dài gây lost in the middle
-TOP_K = 5
+# Chọn 10 vì: đủ evidence mà không quá dài gây lost in the middle
+TOP_K = 10
 
 # top_p (nucleus sampling): Xác suất tích luỹ cho token generation
 # Chọn 0.9 vì: đủ diverse nhưng không quá random
@@ -164,7 +164,7 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
     from openai import OpenAI
     api_key = os.getenv("OPENAI_API_KEY")
     base_url = os.getenv("OPENAI_BASE_URL")
-    model_name = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    model_name = os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
 
     client = OpenAI(
         api_key=api_key,

@@ -445,7 +445,7 @@ if __name__ == "__main__":
     print(f"\n✅ Loaded {len(golden)} test cases from golden_dataset.json")
 
     # Subset for fast eval (sử dụng 5 câu đầu để demo, bỏ comment để chạy full)
-    QUICK_EVAL = True  # Đặt False để chạy toàn bộ 15 câu
+    QUICK_EVAL = False  # Chạy toàn bộ 15 câu để khớp rubric nhóm
     eval_set = golden[:5] if QUICK_EVAL else golden
     if QUICK_EVAL:
         print(f"⚡ Quick eval mode: {len(eval_set)}/{len(golden)} questions (set QUICK_EVAL=False for full)")
