@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.wrangler/
+backend.log
+backend.err.log
+frontend.log
+frontend.err.log

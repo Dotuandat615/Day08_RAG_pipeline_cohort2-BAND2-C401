@@ -16,9 +16,29 @@ BM25 hoạt động thế nào:
 """
 
 from pathlib import Path
+import re
+import unicodedata
 
 # TODO: Load corpus từ data/standardized/ hoặc từ vector store
-CORPUS: list[dict] = []  # List of {'content': str, 'metadata': dict}
+def load_corpus() -> list[dict]:
+    store_file = Path(__file__).parent.parent / "data" / "vector_store.json"
+    if not store_file.exists():
+        return []
+    try:
+        import json
+        return json.loads(store_file.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+CORPUS: list[dict] = load_corpus()
+_BM25_INDEX = None
+
+
+def tokenize(text: str) -> list[str]:
+    """Normalize Vietnamese text for BM25 while preserving article numbers."""
+    normalized = unicodedata.normalize("NFD", text.lower())
+    without_marks = "".join(ch for ch in normalized if unicodedata.category(ch) != "Mn")
+    return re.findall(r"[a-z0-9]+", without_marks)
 
 
 def build_bm25_index(corpus: list[dict]):
@@ -28,15 +48,11 @@ def build_bm25_index(corpus: list[dict]):
     Args:
         corpus: List of {'content': str, 'metadata': dict}
     """
-    # TODO: Implement BM25 index
-    #
-    # from rank_bm25 import BM25Okapi
-    #
-    # # Tokenize - cho tiếng Việt nên dùng underthesea hoặc đơn giản split()
-    # tokenized_corpus = [doc["content"].lower().split() for doc in corpus]
-    # bm25 = BM25Okapi(tokenized_corpus)
-    # return bm25
-    raise NotImplementedError("Implement build_bm25_index")
+    if not corpus:
+        return None
+    from rank_bm25 import BM25Okapi
+    tokenized_corpus = [tokenize(doc["content"]) for doc in corpus]
+    return BM25Okapi(tokenized_corpus)
 
 
 def lexical_search(query: str, top_k: int = 10) -> list[dict]:
@@ -55,29 +71,38 @@ def lexical_search(query: str, top_k: int = 10) -> list[dict]:
         }
         Sorted by score descending.
     """
-    # TODO: Implement lexical search
-    #
-    # tokenized_query = query.lower().split()
-    # scores = bm25.get_scores(tokenized_query)
-    #
-    # # Get top_k indices
-    # import numpy as np
-    # top_indices = np.argsort(scores)[::-1][:top_k]
-    #
-    # results = []
-    # for idx in top_indices:
-    #     if scores[idx] > 0:
-    #         results.append({
-    #             "content": CORPUS[idx]["content"],
-    #             "score": float(scores[idx]),
-    #             "metadata": CORPUS[idx]["metadata"]
-    #         })
-    # return results
-    raise NotImplementedError("Implement lexical_search")
+    global CORPUS, _BM25_INDEX
+    if not CORPUS:
+        CORPUS = load_corpus()
+    
+    if not CORPUS:
+        return []
+
+    if _BM25_INDEX is None:
+        _BM25_INDEX = build_bm25_index(CORPUS)
+
+    if _BM25_INDEX is None:
+        return []
+
+    import numpy as np
+    tokenized_query = tokenize(query)
+    scores = _BM25_INDEX.get_scores(tokenized_query)
+
+    # Get top_k indices
+    top_indices = np.argsort(scores)[::-1][:top_k]
+
+    results = []
+    for idx in top_indices:
+        results.append({
+            "content": CORPUS[idx]["content"],
+            "score": float(scores[idx]),
+            "metadata": CORPUS[idx]["metadata"]
+        })
+    return results
 
 
 if __name__ == "__main__":
     # Test
     results = lexical_search("Điều 248 tàng trữ trái phép chất ma tuý", top_k=5)
     for r in results:
-        print(f"[{r['score']:.3f}] {r['content'][:100]}...")
+        print(f"[{r['score']:.3f}] {ascii(r['content'][:100])}...")
