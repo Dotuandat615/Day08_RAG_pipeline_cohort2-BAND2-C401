@@ -1,0 +1,9 @@
+name = "druglaw-rag"
+pages_build_output_dir = "frontend"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "druglaw-rag"
+
+# Sau khi deploy backend lên Railway/Render, thêm biến môi trường:
+# API_BASE_URL = "https://your-backend-url.railway.app"

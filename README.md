@@ -518,7 +518,43 @@ run_dashboard()
 ### Kiến Trúc Hệ Thống
 
 ```
-[Vẽ diagram kiến trúc ở đây]
+┌─────────────────────────────────────────────────────────────────┐
+│                    DrugLaw RAG Architecture                      │
+└─────────────────────────────────────────────────────────────────┘
+
+  [User Browser]
+       │  HTTP/REST (Fetch API)
+       ▼
+  ┌──────────────┐          ┌─────────────────────────────────────┐
+  │  HTML/CSS/JS │          │         FastAPI Backend              │
+  │  (Cloudflare │◄────────►│  /api/chat  /api/health  /api/config│
+  │   Pages)     │          └──────────────┬──────────────────────┘
+  └──────────────┘                         │
+                                           ▼
+                              ┌────────────────────────┐
+                              │   RAG Pipeline Core     │
+                              │                         │
+                              │  Query                  │
+                              │   ├─→ Semantic Search   │
+                              │   │   (BAAI/bge-m3)     │
+                              │   ├─→ Lexical (BM25)    │
+                              │   │                     │
+                              │   ├─→ RRF Fusion        │
+                              │   ├─→ Cross-Encoder     │
+                              │   │   Reranking         │
+                              │   │                     │
+                              │   └─→ score < 0.3?      │
+                              │         └─→ PageIndex   │
+                              │             Vectorless  │
+                              │                         │
+                              │   ↓                     │
+                              │  Lost-in-Middle Reorder │
+                              │  Context Formatting     │
+                              │  LLM Generation         │
+                              │  (gpt-5.4-mini @ckey)  │
+                              │                         │
+                              │  Answer + Citations     │
+                              └────────────────────────┘
 ```
 
 ---
@@ -527,10 +563,11 @@ run_dashboard()
 
 | Thành viên | MSSV | Nhiệm vụ | Trạng thái |
 |-----------|------|----------|------------|
-| | | | |
-| | | | |
-| | | | |
-| | | | |
+| Đỗ Tuấn Đạt | 2A202600818 | Task 1,2,3 + Kiến trúc hệ thống | ✅ Done |
+| Hoàng Hiếu Trung | 2A202600702 | Task 4,5,6 + Indexing | ✅ Done |
+| Phan Văn Hiếu | 2A202600732 | Task 7,8 + Reranking + PageIndex | ✅ Done |
+| Đàm Xuân Giáp | 2A202600740 | Task 9,10 + Pipeline + Generation | ✅ Done |
+| Đỗ Tuấn Đạt | 2A202600818 | UI/UX HTML + FastAPI + Evaluation | ✅ Done |
 
 ---
 

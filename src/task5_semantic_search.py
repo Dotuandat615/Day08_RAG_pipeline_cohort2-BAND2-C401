@@ -8,6 +8,15 @@ Yêu cầu:
     - Output: danh sách chunks có score, sorted descending
     - Phải tương thích với embedding model và vector store ở Task 4
 """
+_MODEL = None
+
+
+def _get_model():
+    global _MODEL
+    if _MODEL is None:
+        from sentence_transformers import SentenceTransformer
+        _MODEL = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    return _MODEL
 
 
 def semantic_search(query: str, top_k: int = 10) -> list[dict]:
@@ -26,41 +35,52 @@ def semantic_search(query: str, top_k: int = 10) -> list[dict]:
         }
         Sorted by score descending.
     """
-    # TODO: Implement semantic search
-    #
-    # Bước 1: Embed query bằng cùng model ở Task 4
-    # Bước 2: Query vector store (cosine similarity)
-    # Bước 3: Return top_k results
-    #
-    # Ví dụ với Weaviate:
-    # import weaviate
-    # from sentence_transformers import SentenceTransformer
-    #
-    # model = SentenceTransformer("BAAI/bge-m3")
-    # query_embedding = model.encode(query).tolist()
-    #
-    # client = weaviate.connect_to_local()
-    # collection = client.collections.get("DrugLawDocs")
-    #
-    # results = collection.query.near_vector(
-    #     near_vector=query_embedding,
-    #     limit=top_k,
-    #     return_metadata=MetadataQuery(distance=True)
-    # )
-    #
-    # return [
-    #     {
-    #         "content": obj.properties["content"],
-    #         "score": 1 - obj.metadata.distance,  # distance → similarity
-    #         "metadata": {"source": obj.properties["source"], ...}
-    #     }
-    #     for obj in results.objects
-    # ]
-    raise NotImplementedError("Implement semantic_search")
+    import json
+    import numpy as np
+    from pathlib import Path
+
+    store_file = Path(__file__).parent.parent / "data" / "vector_store.json"
+    if not store_file.exists():
+        print("Vector store not found. Please run task4 first.")
+        return []
+
+    # Load chunks
+    chunks = json.loads(store_file.read_text(encoding="utf-8"))
+    if not chunks:
+        return []
+
+    # Load same embedding model once per process.
+    model = _get_model()
+    query_vector = model.encode(query)
+
+    results = []
+    for chunk in chunks:
+        chunk_vector = np.array(chunk["embedding"])
+        
+        # Compute cosine similarity
+        dot_val = np.dot(query_vector, chunk_vector)
+        norm_q = np.linalg.norm(query_vector)
+        norm_c = np.linalg.norm(chunk_vector)
+        
+        if norm_q > 0 and norm_c > 0:
+            score = float(dot_val / (norm_q * norm_c))
+        else:
+            score = 0.0
+
+        results.append({
+            "content": chunk["content"],
+            "score": score,
+            "metadata": chunk["metadata"]
+        })
+
+    # Sort descending by score
+    results.sort(key=lambda x: x["score"], reverse=True)
+    
+    return results[:top_k]
 
 
 if __name__ == "__main__":
     # Test
     results = semantic_search("hình phạt cho tội tàng trữ ma tuý", top_k=5)
     for r in results:
-        print(f"[{r['score']:.3f}] {r['content'][:100]}...")
+        print(f"[{r['score']:.3f}] {ascii(r['content'][:100])}...")

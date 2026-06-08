@@ -31,14 +31,15 @@ def convert_legal_docs():
     md = MarkItDown()
 
     for filepath in legal_dir.iterdir():
-        if filepath.suffix.lower() in (".pdf", ".docx", ".doc"):
-            print(f"Converting: {filepath.name}")
-            # TODO: Convert và lưu file
-            # result = md.convert(str(filepath))
-            # output_path = output_dir / f"{filepath.stem}.md"
-            # output_path.write_text(result.text_content, encoding="utf-8")
-            # print(f"  ✓ Saved: {output_path}")
-            raise NotImplementedError("Implement convert_legal_docs")
+        if filepath.is_file() and filepath.suffix.lower() in (".pdf", ".docx", ".doc"):
+            print(f"Converting: {ascii(filepath.name)}")
+            try:
+                result = md.convert(str(filepath))
+                output_path = output_dir / f"{filepath.stem}.md"
+                output_path.write_text(result.text_content, encoding="utf-8")
+                print(f"  Saved: {ascii(output_path.name)}")
+            except Exception as e:
+                print(f"  Error converting {ascii(filepath.name)}: {e}")
 
 
 def convert_news_articles():
@@ -48,21 +49,22 @@ def convert_news_articles():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for filepath in news_dir.iterdir():
-        if filepath.suffix.lower() == ".json":
-            print(f"Converting: {filepath.name}")
-            # TODO: Đọc JSON, extract content_markdown, lưu thành .md
-            # data = json.loads(filepath.read_text(encoding="utf-8"))
-            # output_path = output_dir / f"{filepath.stem}.md"
-            #
-            # # Thêm metadata header
-            # header = f"# {data.get('title', 'Unknown')}\n\n"
-            # header += f"**Source:** {data.get('url', 'N/A')}\n"
-            # header += f"**Crawled:** {data.get('date_crawled', 'N/A')}\n\n---\n\n"
-            #
-            # content = header + data.get("content_markdown", "")
-            # output_path.write_text(content, encoding="utf-8")
-            # print(f"  ✓ Saved: {output_path}")
-            raise NotImplementedError("Implement convert_news_articles")
+        if filepath.is_file() and filepath.suffix.lower() == ".json":
+            print(f"Converting: {ascii(filepath.name)}")
+            try:
+                data = json.loads(filepath.read_text(encoding="utf-8"))
+                output_path = output_dir / f"{filepath.stem}.md"
+
+                # Thêm metadata header
+                header = f"# {data.get('title', 'Unknown')}\n\n"
+                header += f"**Source:** {data.get('url', 'N/A')}\n"
+                header += f"**Crawled:** {data.get('date_crawled', 'N/A')}\n\n---\n\n"
+
+                content = header + data.get("content_markdown", "")
+                output_path.write_text(content, encoding="utf-8")
+                print(f"  Saved: {ascii(output_path.name)}")
+            except Exception as e:
+                print(f"  Error converting {ascii(filepath.name)}: {e}")
 
 
 def convert_all():
@@ -77,7 +79,7 @@ def convert_all():
     print("\n--- News Articles ---")
     convert_news_articles()
 
-    print("\n✓ Done! Output tại:", OUTPUT_DIR)
+    print("\nSuccess Done! Output at:", OUTPUT_DIR)
 
 
 if __name__ == "__main__":

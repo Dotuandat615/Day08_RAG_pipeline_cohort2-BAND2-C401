@@ -1,0 +1,11 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.wrangler
+.env
+backend.log
+backend.err.log
+frontend.log
+frontend.err.log
