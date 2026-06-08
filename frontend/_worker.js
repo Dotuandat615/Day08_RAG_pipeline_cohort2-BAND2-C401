@@ -74,6 +74,38 @@ const JSON_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+async function proxyToBackend(request, env) {
+  const baseUrl = env?.API_BASE_URL;
+  if (!baseUrl) return null;
+
+  const incomingUrl = new URL(request.url);
+  const targetUrl = new URL(incomingUrl.pathname + incomingUrl.search, baseUrl);
+  const headers = new Headers(request.headers);
+  headers.delete("host");
+
+  try {
+    const response = await fetch(targetUrl.toString(), {
+      method: request.method,
+      headers,
+      body: request.method === "GET" || request.method === "HEAD" ? undefined : request.body,
+      redirect: "follow",
+    });
+
+    const responseHeaders = new Headers(response.headers);
+    responseHeaders.set("Access-Control-Allow-Origin", "*");
+    responseHeaders.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    responseHeaders.set("Access-Control-Allow-Headers", "Content-Type");
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: responseHeaders,
+    });
+  } catch (error) {
+    console.log("FastAPI proxy failed, using Worker fallback:", error?.message || error);
+    return null;
+  }
+}
+
 function normalize(text) {
   return (text || "")
     .toLowerCase()
@@ -147,11 +179,14 @@ function buildAnswer(question, sources) {
   return `${evidence} [${sources[0]?.source || "DrugLaw RAG"}, 2026]`;
 }
 
-async function handleApi(request) {
+async function handleApi(request, env) {
   const url = new URL(request.url);
   if (request.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: JSON_HEADERS });
   }
+
+  const proxied = await proxyToBackend(request, env);
+  if (proxied) return proxied;
 
   if (url.pathname === "/api/health") {
     return Response.json({
@@ -206,7 +241,7 @@ async function handleApi(request) {
 
 export default {
   async fetch(request, env) {
-    const apiResponse = await handleApi(request);
+    const apiResponse = await handleApi(request, env);
     if (apiResponse) return apiResponse;
     return env.ASSETS.fetch(request);
   },

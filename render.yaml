@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: druglaw-rag-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_BASE_URL
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5.4-mini
+      - key: PAGEINDEX_API_KEY
+        sync: false

@@ -74,13 +74,14 @@ _pipeline_ready = False
 def ensure_pipeline():
     global _pipeline_ready
     if not _pipeline_ready:
-        try:
-            from src.task4_chunking_indexing import build_index
-            build_index()
-            _pipeline_ready = True
-        except Exception as e:
-            print(f"[WARN] Pipeline init: {e}")
-            _pipeline_ready = True  # Continue even if index already built
+        vector_store = Path(__file__).parent / "data" / "vector_store.json"
+        if not vector_store.exists():
+            try:
+                from src.task4_chunking_indexing import run_pipeline
+                run_pipeline()
+            except Exception as e:
+                print(f"[WARN] Pipeline init failed: {e}")
+        _pipeline_ready = True
 
 
 # =============================================================================
@@ -208,4 +209,4 @@ async def get_config():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
