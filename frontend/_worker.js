@@ -3,25 +3,13 @@ const DOCS = [
     source: "Bo_luat_Hinh_su_va_Nghi_dinh_Lien_quan.md",
     type: "legal",
     content:
-      "Điều 249 Bộ luật Hình sự quy định người nào tàng trữ trái phép chất ma túy mà không nhằm mục đích mua bán, vận chuyển, sản xuất thì bị phạt tù từ 01 năm đến 05 năm ở khung cơ bản. Các khung tăng nặng có thể là 05 đến 10 năm, 10 đến 15 năm, và 15 đến 20 năm hoặc tù chung thân khi khối lượng đặc biệt lớn.",
+      "Điều 249 Bộ luật Hình sự quy định người nào tàng trữ trái phép chất ma túy mà không nhằm mục đích mua bán, vận chuyển hoặc sản xuất trái phép chất ma túy thì bị phạt tù từ 01 năm đến 05 năm ở khung cơ bản. Các trường hợp tăng nặng có thể bị phạt tù từ 05 năm đến 10 năm, 10 năm đến 15 năm, hoặc 15 năm đến 20 năm hoặc tù chung thân khi khối lượng đặc biệt lớn.",
   },
   {
     source: "Bo_luat_Hinh_su_va_Nghi_dinh_Lien_quan.md",
     type: "legal",
     content:
-      "Điều 248 quy định tội sản xuất trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù. Nếu có tình tiết tăng nặng như có tổ chức, phạm tội nhiều lần, lợi dụng chức vụ hoặc khối lượng lớn, hình phạt có thể tăng lên 07 đến 15 năm, 15 đến 20 năm, tù chung thân hoặc tử hình.",
-  },
-  {
-    source: "Bo_luat_Hinh_su_va_Nghi_dinh_Lien_quan.md",
-    type: "legal",
-    content:
-      "Điều 250 về vận chuyển trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù. Khi có số lượng lớn, có tổ chức hoặc các tình tiết nghiêm trọng khác, mức hình phạt có thể lên đến tù chung thân hoặc tử hình.",
-  },
-  {
-    source: "Bo_luat_Hinh_su_va_Nghi_dinh_Lien_quan.md",
-    type: "legal",
-    content:
-      "Điều 251 về mua bán trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù. Khung tăng nặng có thể lên đến tù chung thân hoặc tử hình nếu phạm tội với số lượng đặc biệt lớn, có tổ chức hoặc thu lợi bất chính đặc biệt lớn.",
+      "Điều 248 quy định tội sản xuất trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù. Điều 250 về vận chuyển trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù. Điều 251 về mua bán trái phép chất ma túy có khung cơ bản từ 02 năm đến 07 năm tù.",
   },
   {
     source: "Luật số 73.2021.QH14 Luật Phòng, chống ma túy.md",
@@ -33,13 +21,13 @@ const DOCS = [
     source: "Luật số 73.2021.QH14 Luật Phòng, chống ma túy.md",
     type: "legal",
     content:
-      "Trong Luật Phòng, chống ma túy 2021, chất ma túy là chất gây nghiện, chất hướng thần được quy định trong danh mục chất ma túy do Chính phủ ban hành. Người sử dụng trái phép chất ma túy là người sử dụng mà không được phép và có kết quả xét nghiệm dương tính.",
+      "Chất ma túy là chất gây nghiện, chất hướng thần được quy định trong danh mục chất ma túy do Chính phủ ban hành. Chất hướng thần là chất kích thích hoặc ức chế thần kinh hoặc gây ảo giác; nếu sử dụng nhiều lần có thể dẫn tới tình trạng nghiện đối với người sử dụng.",
   },
   {
     source: "Luật số 73.2021.QH14 Luật Phòng, chống ma túy.md",
     type: "legal",
     content:
-      "Các hình thức cai nghiện ma túy theo Luật 2021 gồm cai nghiện tự nguyện tại gia đình, cộng đồng hoặc cơ sở cai nghiện; và cai nghiện bắt buộc theo quyết định, điều kiện, trình tự do pháp luật quy định.",
+      "Các hình thức cai nghiện ma túy theo Luật 2021 gồm cai nghiện tự nguyện tại gia đình, cộng đồng hoặc cơ sở cai nghiện; và cai nghiện bắt buộc theo điều kiện, trình tự do pháp luật quy định.",
   },
   {
     source: "Nghị định số 28.2026.NĐ-CP quy định các danh mục chất ma túy và tiền chất.md",
@@ -48,16 +36,10 @@ const DOCS = [
       "Nghị định 28/2026/NĐ-CP ban hành các danh mục chất ma túy và tiền chất. Danh mục I là các chất ma túy tuyệt đối cấm sử dụng trong y học và đời sống xã hội, trừ các trường hợp nghiên cứu, kiểm nghiệm, giám định, quốc phòng, an ninh theo quy định đặc biệt.",
   },
   {
-    source: "Nghị định số 28.2026.NĐ-CP quy định các danh mục chất ma túy và tiền chất.md",
+    source: "Glossary_Danh_muc_chat_ma_tuy.md",
     type: "legal",
     content:
-      "Danh mục I trong Nghị định 28/2026/NĐ-CP bao gồm các nhóm chất gây nghiện và chất hướng thần bị cấm tuyệt đối; ví dụ trong bộ tài liệu có nhắc đến heroin, cocaine, methamphetamine, MDMA, cần sa và các chất tương tự.",
-  },
-  {
-    source: "Nhóm bài báo đã crawl trong data/landing/news",
-    type: "news",
-    content:
-      "Nhóm bài báo trong bộ dữ liệu nhắc đến nhiều nghệ sĩ, người mẫu hoặc người nổi tiếng liên quan đến các vụ việc ma túy, gồm Chi Dân, An Tây, Trúc Phương, Lệ Hằng, Miu Lê, Chu Bin, Nhikolai Đinh, Hữu Tín, Châu Việt Cường, Minh Quốc và Hiệp 'gà'. Một số bài là tin vụ án cụ thể, một số bài là bài tổng hợp hoặc bình luận xã hội.",
+      "Acetorphine thuộc Danh mục I, mục IA - các chất gây nghiện bị kiểm soát theo Nghị định 28/2026/NĐ-CP. Dòng trong bảng ghi: Acetorphine; tên khoa học 3-O-acetyltetrahydro-7-alpha-(1-hydroxyl-1-methylbutyl)-6,14-endoetheno-oripavine; mã CAS 25333-77-1.",
   },
   {
     source: "article_01.json - VietNamNet",
@@ -103,7 +85,7 @@ function normalize(text) {
 }
 
 function searchDocs(question, topK = 5) {
-  const queryTerms = new Set(normalize(question).split(" ").filter((term) => term.length > 2));
+  const queryTerms = new Set(normalize(question).split(" ").filter((term) => term.length > 2 || /^\d+$/.test(term)));
   const results = DOCS.map((doc, index) => {
     const docText = normalize(`${doc.source} ${doc.content}`);
     let hits = 0;
@@ -118,7 +100,7 @@ function searchDocs(question, topK = 5) {
       score: Math.max(score, 0.08),
       source: doc.source,
       type: doc.type,
-      chunk_id: `cf-demo-${index + 1}`,
+      chunk_id: `cf-${index + 1}`,
       retrieval_method: "lexical",
     };
   })
@@ -130,9 +112,16 @@ function searchDocs(question, topK = 5) {
 
 function buildAnswer(question, sources) {
   const q = normalize(question);
-  const asksAboutNews = ["nghe", "nghe si", "noi tieng", "bao", "tin tuc", "article", "ca si", "dien vien"].some((term) => q.includes(term));
 
-  if (asksAboutNews) {
+  if (q.includes("acetorphine")) {
+    return "Acetorphine thuộc Danh mục I, mục IA - các chất gây nghiện bị kiểm soát theo Nghị định 28/2026/NĐ-CP. Dòng trong bảng ghi Acetorphine có mã CAS 25333-77-1 [Glossary_Danh_muc_chat_ma_tuy.md; Nghị định 28/2026/NĐ-CP, 2026].";
+  }
+
+  if (q.includes("chat huong than") || q.includes("huong than la gi")) {
+    return "Chất hướng thần là chất kích thích hoặc ức chế thần kinh hoặc gây ảo giác; nếu sử dụng nhiều lần có thể dẫn tới tình trạng nghiện đối với người sử dụng [Luật số 73.2021.QH14 Luật Phòng, chống ma túy, 2021].";
+  }
+
+  if (q.includes("nghe si") || q.includes("noi tieng") || q.includes("ca si") || q.includes("dien vien") || q.includes("bao") || q.includes("tin tuc")) {
     return [
       "Theo các bài báo đã crawl trong bộ dữ liệu, những nghệ sĩ/người nổi tiếng được nhắc đến liên quan đến các vụ việc ma túy gồm: Chi Dân, An Tây, Nguyễn Đỗ Trúc Phương, Lệ Hằng, Miu Lê, Chu Bin, Nhikolai Đinh, Hữu Tín, Châu Việt Cường, Minh Quốc và Hiệp 'gà' [article_03.json - VietNamNet, 2026; article_05.json - VietNamNet, 2026].",
       "",
@@ -145,12 +134,15 @@ function buildAnswer(question, sources) {
   if (q.includes("249") || q.includes("tang tru")) {
     return "Theo bộ tài liệu, Điều 249 BLHS quy định tội tàng trữ trái phép chất ma túy có khung cơ bản từ 01 năm đến 05 năm tù. Các khung tăng nặng có thể lên 05-10 năm, 10-15 năm, và 15-20 năm hoặc tù chung thân khi khối lượng đặc biệt lớn [Bo_luat_Hinh_su_va_Nghi_dinh_Lien_quan.md, 2015/2017].";
   }
+
   if (q.includes("cai nghien")) {
     return "Theo Luật Phòng, chống ma túy 2021 trong bộ dữ liệu, các hình thức cai nghiện gồm cai nghiện tự nguyện tại gia đình, cộng đồng hoặc cơ sở cai nghiện, và cai nghiện bắt buộc theo điều kiện, trình tự pháp luật quy định [Luật số 73.2021.QH14, 2021].";
   }
+
   if (q.includes("danh muc") || q.includes("nhom i") || q.includes("nhom 1")) {
     return "Theo Nghị định 28/2026/NĐ-CP, Danh mục I là các chất ma túy tuyệt đối cấm sử dụng trong y học và đời sống xã hội, trừ các trường hợp đặc biệt về nghiên cứu, kiểm nghiệm, giám định, quốc phòng, an ninh [Nghị định 28/2026/NĐ-CP, 2026].";
   }
+
   const evidence = sources.slice(0, 2).map((source) => source.content).join(" ");
   return `${evidence} [${sources[0]?.source || "DrugLaw RAG"}, 2026]`;
 }
@@ -164,7 +156,7 @@ async function handleApi(request) {
   if (url.pathname === "/api/health") {
     return Response.json({
       status: "healthy",
-      model: "druglaw-rag-api",
+      model: "druglaw-rag-cloudflare",
       base_url: "Cloudflare Pages Worker",
       pipeline: "lexical retrieval + citation response",
     }, { headers: JSON_HEADERS });
@@ -172,9 +164,9 @@ async function handleApi(request) {
 
   if (url.pathname === "/api/config") {
     return Response.json({
-      embedding_model: "BAAI/bge-m3 (FastAPI full backend)",
-      reranker: "Cross-Encoder (FastAPI full backend)",
-      llm_model: "druglaw-rag-api",
+      embedding_model: "Cloudflare Worker lexical mode",
+      reranker: "keyword scoring",
+      llm_model: "druglaw-rag-cloudflare",
       llm_base_url: "Cloudflare Pages Worker",
       retrieval: {
         strategy: "Lexical retrieval on deployed Cloudflare Pages",
